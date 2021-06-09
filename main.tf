@@ -5,9 +5,11 @@ variable "TFE_TOKEN" {}
 data "terraform_remote_state" "rstate" {
   backend = "remote"
   config = {
-#     hostname     = "${var.TFE_HOST}"
-    organization = "${var.TFE_ORG}"
-#     token        = "${var.TFE_TOKEN}"
+    hostname     = var.TFE_HOST
+    organization = var.TFE_ORG
+    credentials "app.terraform.io" {
+      token        = var.TFE_TOKEN
+    }
     workspaces   = {
       name = "tfe-remote-parent"
     }
@@ -18,7 +20,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "2.62.1"
+      version >= "2.62.1"
     }
   }
 }
