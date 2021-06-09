@@ -5,11 +5,9 @@ variable "TFE_TOKEN" {}
 data "terraform_remote_state" "rstate" {
   backend = "remote"
   config = {
-    hostname     = var.TFE_HOST
-    organization = var.TFE_ORG
-    credentials "app.terraform.io" {
-      token        = var.TFE_TOKEN
-    }
+    hostname     = var.TFE_HOST       # Optional. Defaults to app.terraform.io
+    organization = var.TFE_ORG        # Required.
+    token        = var.TFE_TOKEN      # Required.
     workspaces   = {
       name = "tfe-remote-parent"
     }
