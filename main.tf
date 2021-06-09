@@ -14,10 +14,18 @@ data "terraform_remote_state" "rstate" {
   }
 }
 
-# Configure the Azure Provider
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "2.62.1"
+    }
+  }
+}
+
+# Configure the Microsoft Azure Provider
 provider "azurerm" {
-  # whilst the `version` attribute is optional, we recommend pinning to a given version of the Provider
-  version = "=1.38.0"
+  features {}
 }
 
 # Create a virtual network within the resource group
